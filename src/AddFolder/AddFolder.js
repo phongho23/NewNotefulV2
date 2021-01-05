@@ -14,13 +14,13 @@ export default class AddFolder extends Component {
                     <div className='field'>
                         <label htmlFor='folderNameUserInput'>
                             Name
-            </label>
+                        </label>
                         <input required type='text' id='folderNameUserInput' name='folderNameUserInput' value={this.context.folderName} onChange={this.context.handleFormChange} />
                     </div>
                     <div className='buttons'>
                         <button disabled={this.context.folderName[0] === " "} type='submit'>
                             Add folder
-            </button>
+                        </button>
                     </div>
                 </NotefulForm>
             </section>

@@ -11,25 +11,39 @@ export default withRouter(function NotefulForm(props) {
   async function handleSubmit(event, data) {
     event.preventDefault();
 
+    
     if (props.type === 'folders') {
-      await APInoteful.apiPost({ 
-        datum: { name: data.folderName, }, 
-        type: props.type 
-      })
-      await data.updateState();
-      props.history.goBack();
+      try {
+        await APInoteful.apiPost({
+          datum: { name: data.folderName, },
+          type: props.type
+        })
+        await data.updateState();
+        props.history.goBack();
+      } catch (error) {
+        console.log(error)
+        return error
+      } 
     }
 
+
     else {
-      await APInoteful.apiPost({ 
-        datum: { 
-          name: data.noteNameUserInput, 
-          content: data.noteTextUserInput, 
-          folderId: data.noteFolderUserSelect, 
-          modified: Date.now(), }, 
-          type: 'notes' })
-      await data.updateState();
-      props.history.push(`/folder/${data.noteFolderUserSelect}`);
+      try {
+        await APInoteful.apiPost({
+          datum: {
+            name: data.noteNameUserInput,
+            content: data.noteTextUserInput,
+            folderId: data.noteFolderUserSelect,
+            modified: Date.now(),
+          },
+          type: 'notes'
+        })
+        await data.updateState();
+        props.history.push(`/folder/${data.noteFolderUserSelect}`);
+      } catch (error) {
+        console.log(error)
+        return error
+      }
     }
     data.clearData();
   }
